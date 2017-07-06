@@ -1,5 +1,5 @@
 {
-  "name": "Grades Transfer",
+  "name": "grades_transfer",
   "version": "0.0.1",
   "description": "ReactJS + PHP API",
   "main": "index.js",
