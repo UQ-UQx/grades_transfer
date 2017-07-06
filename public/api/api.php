@@ -7,14 +7,10 @@ class MyApi
 	 * @var object
 	 */
 	private $request;
-	private $db;
-	private $config;
 
-	public function __construct($database, $config)
+	public function __construct()
 	{
 
-		$this->db = $database;
-		$this->config = $config;
 		$this->_processRequest();
 
 	}
@@ -127,17 +123,7 @@ class MyApi
 
 } //MyApi class end
 
-require_once('../lib/db.php');
-require_once('../config.php');
 
-if(isset($config['use_db']) && $config['use_db']) {
-	Db::config( 'driver',   'mysql' );
-	Db::config( 'host',     $config['db']['hostname'] );
-	Db::config( 'database', $config['db']['dbname'] );
-	Db::config( 'user',     $config['db']['username'] );
-	Db::config( 'password', $config['db']['password'] );
-}
 
-$db = null; //Db::instance(); //uncomment and enter db details in config to use database
-$MyApi = new MyApi($db, $config);
+$MyApi = new MyApi();
 
