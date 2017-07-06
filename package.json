@@ -1,5 +1,5 @@
 {
-  "name": "react-php-base",
+  "name": "Grades Transfer",
   "version": "0.0.1",
   "description": "ReactJS + PHP API",
   "main": "index.js",
@@ -11,18 +11,20 @@
     "react",
     "js",
     "php",
-    "api"
+    "api",
+    "edx",
+    "lti"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ankithkonda/react-php-base.git"
+    "url": "git+https://github.com/ankithkonda/UQ-UQx/grades_transfer.git"
   },
   "author": "Ankith Konda",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ankithkonda/react-php-base/issues"
+    "url": "https://github.com/ankithkonda/UQ-UQx/grades_transfer/issues"
   },
-  "homepage": "https://github.com/ankithkonda/react-php-base#readme",
+  "homepage": "https://github.com/ankithkonda/UQ-UQx/grades_transfer#readme",
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.24.0",
