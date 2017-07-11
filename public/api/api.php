@@ -51,10 +51,24 @@ class MyApi
 			//kill script
 			exit();
 		}
-        
+
+		
+		//call appropriate function for the action provided
+		// $lti_id = $this->request->lti_id;
+		// $user_id = $this->request->user_id;
+
 		switch($this->request->action){
 			case "hello":
-				$this->hello($this->request->data);
+				error_log("hello has been sent through");
+				
+				$this->hello();
+				break;
+			case "send_grades":
+				error_log("send_grades has been sent through");
+
+				$data = json_decode($this->request->data);
+				$this->send_grades($data);
+
 				break;
 			default:
 				$this->reply("action switch failed",400);
@@ -62,12 +76,6 @@ class MyApi
 		}
 
 
-
-	}
-
-    public function hello(){
-		$data = json_decode($this->request->data);
-		$this->reply("Hello ".$data->name.", I'm PHP :)");
 	}
 
 	/**
@@ -107,23 +115,40 @@ class MyApi
 		exit;
 	}
 
-	/**
-	 * Determines if the logged in user has admin rights
-	 *
-	 * This is just a placeholder. Here you would check the session or database
-	 * to see if the user has admin rights.
-	 *
-	 * @return boolean
-	 */
-	public function isAdmin()
-	{
-		$this->reply(true);
+	public function hello(){
+		//error_log(json_encode($this->db));
+
+		$this->reply('Hello from the API!');
 	}
+
+	public function send_grades($data){
+	
+		//$lti_id = $data->lti_id;
+		error_log(json_encode($data));
+
+		$config = array(
+			"lti_keys"=>array(
+				$data->lti_key => $data->lti_secret
+			)
+		);
+
+
+
+		error_log("config".json_encode($config));
+
+		foreach ($data->user_ids as $ind => $user_id) {
+			$sourcedid = $data->sourcedid_prefix.":".$user_id;
+			send_grade(floatval($data->grade), $config, $data->grade_url, $sourcedid, $data->lti_key);
+		}
+
+	}
+//{"resource_link_id":"a","context_id":"b","grade":"0.5","lis_outcome_service_url":"c","lti_consumer_key":"d","user_ids_array":["f","g","h"],"lti_consumer_secret":"e"}
 
 
 } //MyApi class end
 
+require_once('../lib/OAuth.php');
+require_once('../lib/grade.php');
 
 
 $MyApi = new MyApi();
-
